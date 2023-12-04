@@ -1,0 +1,104 @@
+body {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    width: 80%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.header {
+    font-size: 36px;
+}
+
+.bookform {
+    margin: 30px 0px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    justify-content: start;
+}
+
+.form-ele {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: bold;
+}
+
+input {
+    height: 20px;
+    width: 250px;
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 16px;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin-right: 32px;
+    margin-bottom: 16px;
+}
+
+#status {
+    padding: 6px 10px;
+    font-size: 16px;
+    height: 35px;
+    width: 105px;
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 16px;
+    background-color: white;
+}
+
+#bookadd {
+    font-weight: bold;
+    width: 100px;
+    height: 35px;
+    padding: 8px 16px;
+    border: 0px;
+    border-radius: 16px;
+    background-color: rgb(79, 186, 221);
+    color: white;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid rgb(219, 216, 216);
+}
+
+td,th {
+    padding: 16px;
+}
+
+.read-btn1 {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background-color: rgb(56, 207, 56);
+    color: white;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.read-btn2 {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 0px;
+    border-radius: 12px;
+    background-color: rgb(221, 64, 64);
+    color: white;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.delete-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 0px;
+    border-radius: 12px;
+    color: white;
+    background-color: rgb(221, 64, 64);
+}

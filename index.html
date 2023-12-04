@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <p>My Library</p>
+    </div>
+    <div class="form">
+        <form action="example.com/path" method="post" class="bookform">
+            <div class="form-ele">
+                <label for="bookname">Book</label>
+                <input type="text" name="bookname" id="bookname" required>
+            </div>
+            <div class="form-ele">
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" required>
+            </div>
+            <div class="form-ele">
+                <label for="status">Status</label>
+                <select name="status" id="status">
+                    <option value="Read">Read</option>
+                    <option value="Not Read">Not read</option>
+                </select>
+            </div>
+            <button id="bookadd">Add Book</button>
+        </form>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="shelf">
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
