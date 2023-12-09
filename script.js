@@ -1,9 +1,11 @@
 (function Library() {
   const manageLibrary = (function () {
-    function Book(name, author, read) {
-      this.name = name;
-      this.author = author;
-      this.read = read;
+    class Book{
+        constructor(name, author, read){
+            this.name = name;
+            this.author = author;
+            this.read = read;
+        }
     }
 
     let myLibrary = [];
