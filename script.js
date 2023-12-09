@@ -1,85 +1,112 @@
-const form = document.querySelector('.bookform');
-const shelf = document.querySelector('.shelf');
+(function Library() {
+  const manageLibrary = (function () {
+    function Book(name, author, read) {
+      this.name = name;
+      this.author = author;
+      this.read = read;
+    }
 
-let myLibrary = [];
+    let myLibrary = [];
 
-function showBooks(){
-    for(let i=0;i<myLibrary.length;i++){
-        const div = document.createElement('tr');
+    const deleteBook = (index) => {
+      myLibrary.splice(index, 1);
+    };
 
-        const sno = document.createElement('td');
-        sno.textContent = `${i+1}.`;
-        div.appendChild(sno);
+    const addBookToLibrary = (form) => {
+      let book = new Book(
+        form.elements[0].value,
+        form.elements[1].value,
+        form.elements[2].value
+      );
+      myLibrary.push(book);
+    };
 
-        const name = document.createElement('td');
-        name.textContent = myLibrary[i].name;
-        div.appendChild(name);
+    const getLibrary = () => myLibrary;
 
-        const author = document.createElement('td');
-        author.textContent = myLibrary[i].author;
-        div.appendChild(author);
+    return { deleteBook, addBookToLibrary, getLibrary };
+  })();
 
-        const read = document.createElement('td');
-        const read_btn = document.createElement('button');
-        read_btn.textContent = myLibrary[i].read;
-        read_btn.classList.add(myLibrary[i].read==='Read'?'read-btn1':'read-btn2');
-        read_btn.addEventListener('click',()=>{
-            if(read_btn.textContent=='Read'){
-                read_btn.textContent='Not Read';
-                read_btn.classList.toggle('read-btn1');
-                read_btn.classList.add('read-btn2');
-            }else{
-                read_btn.textContent='Read';
-                read_btn.classList.add('read-btn1');
-                read_btn.classList.toggle('read-btn2');
+  const screenController = (function () {
+    const shelf = document.querySelector(".shelf");
+    const form = document.querySelector(".bookform");
+
+    const tableController = (function () {
+      const showBooks = () => {
+        myLibrary = manageLibrary.getLibrary();
+
+        for (let i = 0; i < myLibrary.length; i++) {
+          const tableRow = document.createElement("tr");
+
+          const sno = document.createElement("td");
+          sno.textContent = `${i + 1}.`;
+
+          const name = document.createElement("td");
+          name.textContent = myLibrary[i].name;
+
+          const author = document.createElement("td");
+          author.textContent = myLibrary[i].author;
+
+          const read = document.createElement("td");
+          const read_btn = document.createElement("button");
+          read_btn.textContent = myLibrary[i].read;
+          read_btn.classList.add(
+            myLibrary[i].read === "Read" ? "read-btn1" : "read-btn2"
+          );
+          read_btn.addEventListener("click", () => {
+            if (read_btn.textContent == "Read") {
+              read_btn.textContent = "Not Read";
+              read_btn.classList.toggle("read-btn1");
+              read_btn.classList.add("read-btn2");
+            } else {
+              read_btn.textContent = "Read";
+              read_btn.classList.add("read-btn1");
+              read_btn.classList.toggle("read-btn2");
             }
-        })
-        read.appendChild(read_btn);
-        div.appendChild(read);
+          });
+          read.appendChild(read_btn);
 
-        const del = document.createElement('td');
-        const delete_btn = document.createElement('button');
-        delete_btn.classList.add("delete-btn");
-        delete_btn.textContent = "Delete";
-        delete_btn.addEventListener('click', ()=>{
-            deleteBook(i);
-            clear();
+          const del = document.createElement("td");
+          const delete_btn = document.createElement("button");
+          delete_btn.classList.add("delete-btn");
+          delete_btn.textContent = "Delete";
+          delete_btn.addEventListener("click", () => {
+            manageLibrary.deleteBook(i);
+            formController.clear();
             showBooks();
-        });
-        del.appendChild(delete_btn);
-        div.appendChild(del);
+          });
+          del.appendChild(delete_btn);
 
-        shelf.appendChild(div);
-    }
-}
+          tableRow.appendChild(sno);
+          tableRow.appendChild(name);
+          tableRow.appendChild(author);
+          tableRow.appendChild(read);
+          tableRow.appendChild(del);
 
-function deleteBook(index){
-    myLibrary.splice(index,1);
-}
+          shelf.appendChild(tableRow);
+        }
+      };
 
-function Book(name, author, read){
-    this.name = name;
-    this.author = author;
-    this.read = read;
-}
+      return { showBooks };
+    })();
 
-function addBookToLibrary(){
-    let book = new Book(form.elements[0].value, form.elements[1].value, form.elements[2].value);
-    myLibrary.push(book);
-}
+    const formController = (() => {
+      function clear() {
+        form.elements[0].value = "";
+        form.elements[1].value = "";
+        form.elements[2].value = "Read";
+        for (let i = shelf.rows.length - 1; i >= 0; i--) {
+          shelf.deleteRow(i);
+        }
+      }
 
-function clear(){
-    form.elements[0].value="";
-    form.elements[1].value="";
-    form.elements[2].value="Read";
-    for(let i=shelf.rows.length-1;i>=0;i--){
-        shelf.deleteRow(i);
-    }
-}
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        manageLibrary.addBookToLibrary(form);
+        clear();
+        tableController.showBooks();
+      });
 
-form.addEventListener('submit',(e) => {
-    e.preventDefault();
-    addBookToLibrary();
-    clear();
-    showBooks();
-});
+      return { clear };
+    })();
+  })();
+})();
